@@ -1,13 +1,7 @@
 package com.lophiester.Restaurante;
 
-import com.lophiester.Restaurante.domain.Categoria;
-import com.lophiester.Restaurante.domain.Cidade;
-import com.lophiester.Restaurante.domain.Produto;
-import com.lophiester.Restaurante.domain.Provincia;
-import com.lophiester.Restaurante.repositories.CategoriaRepository;
-import com.lophiester.Restaurante.repositories.CidadeRepository;
-import com.lophiester.Restaurante.repositories.ProdutoRepository;
-import com.lophiester.Restaurante.repositories.ProvinciaRepository;
+import com.lophiester.Restaurante.domain.*;
+import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +12,9 @@ import java.util.Arrays;
 @SpringBootApplication
 public class RestauranteApplication implements CommandLineRunner {
 
+
+    @Autowired
+    EnderecoRepository enderecoRepository;
     @Autowired
     private CategoriaRepository categoriaRepository;
     @Autowired
@@ -26,6 +23,8 @@ public class RestauranteApplication implements CommandLineRunner {
     private ProvinciaRepository provinciaRepository;
     @Autowired
     private CidadeRepository cidadeRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(RestauranteApplication.class, args);
@@ -76,6 +75,19 @@ public class RestauranteApplication implements CommandLineRunner {
 
         cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
+        Cliente cli1 = new Cliente(null, "Carlos Morales", "carlos@gmail.com");
+        cli1.getTelefones().addAll(Arrays.asList("08099955"));
+
+        Cliente cli2 = new Cliente(null, "Joao Morales", "joao@gmail.com");
+        cli2.getTelefones().addAll(Arrays.asList("05552154"));
+
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+
+        Endereco end1 = new Endereco(null, "下町宮東18－２", "ビレッジハウス4-102", "0804508", cid1, cli1);
+        Endereco end2 = new Endereco(null, "上田まち32-25", null, "080-1251", cid1, cli1);
+        Endereco end3 = new Endereco(null, "大阪町12-2", "す大阪大学", "415-0802", cid3, cli2);
+
+        enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
     }
 }

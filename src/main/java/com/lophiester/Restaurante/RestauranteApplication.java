@@ -1,9 +1,13 @@
 package com.lophiester.Restaurante;
 
 import com.lophiester.Restaurante.domain.Categoria;
+import com.lophiester.Restaurante.domain.Cidade;
 import com.lophiester.Restaurante.domain.Produto;
+import com.lophiester.Restaurante.domain.Provincia;
 import com.lophiester.Restaurante.repositories.CategoriaRepository;
+import com.lophiester.Restaurante.repositories.CidadeRepository;
 import com.lophiester.Restaurante.repositories.ProdutoRepository;
+import com.lophiester.Restaurante.repositories.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +22,10 @@ public class RestauranteApplication implements CommandLineRunner {
     private CategoriaRepository categoriaRepository;
     @Autowired
     private ProdutoRepository produtoRepository;
+    @Autowired
+    private ProvinciaRepository provinciaRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(RestauranteApplication.class, args);
@@ -52,8 +60,21 @@ public class RestauranteApplication implements CommandLineRunner {
         p5.getCategorias().addAll(Arrays.asList(cat4));
         p6.getCategorias().addAll(Arrays.asList(cat3));
 
-        produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6));
+        produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
 
+        Provincia pro1 = new Provincia(null, "愛知県");
+        Provincia pro2 = new Provincia(null, "大阪府");
+
+        provinciaRepository.saveAll(Arrays.asList(pro1, pro2));
+
+        Cidade cid1 = new Cidade(null, "西尾市", pro1);
+        Cidade cid2 = new Cidade(null, "日進市", pro1);
+        Cidade cid3 = new Cidade(null, "大阪市", pro2);
+
+        pro1.getCidades().addAll(Arrays.asList(cid1, cid2));
+        pro2.getCidades().addAll(Arrays.asList(cid3));
+
+        cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
 
     }

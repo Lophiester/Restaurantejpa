@@ -1,12 +1,14 @@
 package com.lophiester.Restaurante;
 
 import com.lophiester.Restaurante.domain.*;
+import com.lophiester.Restaurante.domain.Enums.EstadoPagamento;
 import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -25,6 +27,10 @@ public class RestauranteApplication implements CommandLineRunner {
     private CidadeRepository cidadeRepository;
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(RestauranteApplication.class, args);
@@ -87,7 +93,27 @@ public class RestauranteApplication implements CommandLineRunner {
         Endereco end2 = new Endereco(null, "上田まち32-25", null, "080-1251", cid1, cli1);
         Endereco end3 = new Endereco(null, "大阪町12-2", "す大阪大学", "415-0802", cid3, cli2);
 
+        cli1.getEnderecos().addAll(Arrays.asList(end1,end2));
+        cli2.getEnderecos().addAll(Arrays.asList(end3));
+
         enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
+        Pedido ped1 = new Pedido(null,sdf.parse("01/01/2021 10:20"),cli1,end1);
+        Pedido ped2 = new Pedido(null,sdf.parse("02/01/2021 11:20"),cli2,end3);
+        Pedido ped3 = new Pedido(null,sdf.parse("03/01/2021 12:20"),cli1,end2);
+
+        Pagamento pgto1 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE,ped1,sdf.parse("05/01/2021 00:00"),null);
+        ped1.setPagamento(pgto1);
+        Pagamento pgto2 = new PagamentoComCartao(null,EstadoPagamento.QUITADO,ped2,6);
+        ped2.setPagamento(pgto2);
+        Pagamento pgto3 = new PagamentoEmDinheiro(null,EstadoPagamento.QUITADO,ped3,2000L);
+        ped3.setPagamento(pgto3);
+
+        cli1.getPedidos().addAll(Arrays.asList(ped1,ped3));
+        cli2.getPedidos().addAll(Arrays.asList(ped2));
+
+        pedidoRepository.saveAll(Arrays.asList(ped1,ped2,ped3));
+        pagamentoRepository.saveAll(Arrays.asList(pgto1,pgto2,pgto3));
     }
 }

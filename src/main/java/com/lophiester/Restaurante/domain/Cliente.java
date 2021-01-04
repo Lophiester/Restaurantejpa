@@ -1,5 +1,7 @@
 package com.lophiester.Restaurante.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +21,11 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONES")
     private Set<String> telefones = new HashSet<>();
     @OneToMany(mappedBy = "cliente")
-    private List<Endereco>enderecos= new ArrayList<>();
+    private List<Endereco> enderecos = new ArrayList<>();
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    private List<Pedido> pedidos= new ArrayList<>();
+
 
     public Cliente() {
     }
@@ -28,6 +34,7 @@ public class Cliente implements Serializable {
         this.id = id;
         this.nome = nome;
         this.email = email;
+
     }
 
     public Integer getId() {
@@ -68,6 +75,14 @@ public class Cliente implements Serializable {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override

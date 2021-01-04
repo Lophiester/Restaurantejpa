@@ -3,7 +3,7 @@ package com.lophiester.Restaurante.domain.Enums;
 public enum EstadoPagamento {
 
     PENDENTE(1, "Pendente"),
-    QUIATADO(2, "Quitado"),
+    QUITADO(2, "Quitado"),
     CANCELADO(3, "Cancelado");
 
     private Integer cod;

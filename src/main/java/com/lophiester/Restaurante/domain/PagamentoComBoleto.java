@@ -1,7 +1,6 @@
 package com.lophiester.Restaurante.domain;
 
 import com.lophiester.Restaurante.domain.Enums.EstadoPagamento;
-import com.lophiester.Restaurante.domain.Pagamento;
 
 import javax.persistence.Entity;
 import java.util.Date;

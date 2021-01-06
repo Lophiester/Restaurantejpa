@@ -31,6 +31,8 @@ public class RestauranteApplication implements CommandLineRunner {
     private PedidoRepository pedidoRepository;
     @Autowired
     private PagamentoRepository pagamentoRepository;
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(RestauranteApplication.class, args);
@@ -115,5 +117,20 @@ public class RestauranteApplication implements CommandLineRunner {
 
         pedidoRepository.saveAll(Arrays.asList(ped1,ped2,ped3));
         pagamentoRepository.saveAll(Arrays.asList(pgto1,pgto2,pgto3));
+
+        ItemPedido ip1 = new ItemPedido(ped1,p1,0L,1,2000L);
+        ItemPedido ip2 = new ItemPedido(ped2,p2,0L,2,950L);
+        ItemPedido ip3 = new ItemPedido(ped3,p3,100L,1,2000L);
+
+        ped1.getItens().addAll(Arrays.asList(ip1));
+        ped2.getItens().addAll(Arrays.asList(ip2));
+        ped3.getItens().addAll(Arrays.asList(ip3));
+
+        p1.getItens().addAll(Arrays.asList(ip1,ip2));
+        p2.getItens().addAll(Arrays.asList(ip2));
+        p3.getItens().addAll(Arrays.asList(ip3));
+
+        itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+
     }
 }

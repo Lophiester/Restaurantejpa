@@ -4,6 +4,8 @@ import com.lophiester.Restaurante.domain.Categoria;
 import com.lophiester.Restaurante.domain.dto.CategoriaDTO;
 import com.lophiester.Restaurante.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,6 +31,17 @@ public class CategoriaResource {
     public ResponseEntity<List<CategoriaDTO>> buscarTudo() {
         List<Categoria> list = categoriaService.findAll();
         List<CategoriaDTO> listDTO = list.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
+    @GetMapping(value = "/paginas")
+    public ResponseEntity<Page<CategoriaDTO>> buscarPorPagina(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "24") Integer size,
+            @RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction direction,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy) {
+        Page<Categoria> list = categoriaService.findPage(page, size, direction, orderBy);
+        Page<CategoriaDTO> listDTO = list.map(categoria -> new CategoriaDTO(categoria));
         return ResponseEntity.ok().body(listDTO);
     }
 

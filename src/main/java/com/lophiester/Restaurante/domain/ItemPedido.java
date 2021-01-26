@@ -1,5 +1,7 @@
 package com.lophiester.Restaurante.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 public class ItemPedido implements Serializable {
 
     @EmbeddedId
+    @JsonIgnore
     private ItemPedidoPK id = new ItemPedidoPK();
     private Long desconto;
     private Integer quantidade;
@@ -24,7 +27,7 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
-
+    @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
     }

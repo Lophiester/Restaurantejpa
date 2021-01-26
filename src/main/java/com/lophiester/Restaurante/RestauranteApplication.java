@@ -1,7 +1,7 @@
 package com.lophiester.Restaurante;
 
 import com.lophiester.Restaurante.domain.*;
-import com.lophiester.Restaurante.domain.Enums.EstadoPagamento;
+import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
 import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

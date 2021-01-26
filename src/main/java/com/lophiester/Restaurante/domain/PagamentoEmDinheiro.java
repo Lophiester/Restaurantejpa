@@ -1,6 +1,6 @@
 package com.lophiester.Restaurante.domain;
 
-import com.lophiester.Restaurante.domain.Enums.EstadoPagamento;
+import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 

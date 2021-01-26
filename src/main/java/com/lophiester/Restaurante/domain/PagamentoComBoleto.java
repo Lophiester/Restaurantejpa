@@ -1,14 +1,16 @@
 package com.lophiester.Restaurante.domain;
 
-import com.lophiester.Restaurante.domain.Enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
 public class PagamentoComBoleto extends Pagamento {
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
 
     public PagamentoComBoleto() {

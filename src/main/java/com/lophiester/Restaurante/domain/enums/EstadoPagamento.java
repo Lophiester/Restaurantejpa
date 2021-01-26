@@ -1,4 +1,4 @@
-package com.lophiester.Restaurante.domain.Enums;
+package com.lophiester.Restaurante.domain.enums;
 
 public enum EstadoPagamento {
 
@@ -18,6 +18,9 @@ public enum EstadoPagamento {
     }
 
     public static EstadoPagamento toEnum(Integer cod) {
+        if (cod == null) {
+            return null;
+        }
         for (EstadoPagamento x : EstadoPagamento.values()) {
             if (cod.equals(x.getCod())) {
                 return x;

@@ -2,6 +2,7 @@ package com.lophiester.Restaurante;
 
 import com.lophiester.Restaurante.domain.*;
 import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
+import com.lophiester.Restaurante.domain.enums.TipoCliente;
 import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -84,8 +85,7 @@ public class RestauranteApplication implements CommandLineRunner {
         cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
         Cliente cli1 = new Cliente(null, "Carlos Morales", "carlos@gmail.com");
-        cli1.getTelefones().addAll(Arrays.asList("08099955"));
-
+        cli1.getTelefones().addAll(Arrays.asList("05552154"));
         Cliente cli2 = new Cliente(null, "Joao Morales", "joao@gmail.com");
         cli2.getTelefones().addAll(Arrays.asList("05552154"));
 

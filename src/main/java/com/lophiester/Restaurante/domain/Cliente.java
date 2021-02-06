@@ -17,49 +17,27 @@ public class Cliente implements Serializable {
     private String nome;
     private String email;
 
+
     @ElementCollection
     @CollectionTable(name = "TELEFONES")
     private Set<String> telefones = new HashSet<>();
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore
-    private List<Pedido> pedidos= new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>();
 
 
     public Cliente() {
     }
 
     public Cliente(Integer id, String nome, String email) {
-        this.id = id;
-        this.nome = nome;
+        this.id    = id;
+        this.nome  = nome;
         this.email = email;
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Set<String> getTelefones() {
         return telefones;
@@ -98,5 +76,30 @@ public class Cliente implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

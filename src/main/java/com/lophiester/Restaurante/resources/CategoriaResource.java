@@ -22,20 +22,20 @@ public class CategoriaResource {
     private CategoriaService categoriaService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
         Categoria obj = categoriaService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDTO>> buscarTudo() {
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
         List<Categoria> list = categoriaService.findAll();
         List<CategoriaDTO> listDTO = list.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/paginas")
-    public ResponseEntity<Page<CategoriaDTO>> buscarPorPagina(
+    @GetMapping(value = "/pages")
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction direction,
@@ -46,21 +46,21 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> inserir(@RequestBody Categoria obj) {
+    public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
         obj = categoriaService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
         obj.setId(id);
         categoriaService.update(obj);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
 

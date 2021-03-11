@@ -31,9 +31,17 @@ public class Produto implements Serializable {
     }
 
     public Produto(Integer id, String nome, Long preco) {
-        this.id = id;
-        this.nome = nome;
+        this.id    = id;
+        this.nome  = nome;
         this.preco = preco;
+    }
+
+    public double getTotal() {
+        double soma = 0;
+        for (ItemPedido ip : itens) {
+            soma = soma + ip.getSubTotal();
+        }
+        return soma;
     }
 
     @JsonIgnore

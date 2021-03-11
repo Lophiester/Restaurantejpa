@@ -22,9 +22,13 @@ public class ItemPedido implements Serializable {
     public ItemPedido(Pedido pedido, Produto produto, Long desconto, Integer quantidade, Long preco) {
         id.setPedido(pedido);
         id.setProduto(produto);
-        this.desconto = desconto;
+        this.desconto   = desconto;
         this.quantidade = quantidade;
-        this.preco = preco;
+        this.preco      = preco;
+    }
+
+    public double getSubTotal() {
+        return (preco - desconto) * quantidade;
     }
 
     @JsonIgnore

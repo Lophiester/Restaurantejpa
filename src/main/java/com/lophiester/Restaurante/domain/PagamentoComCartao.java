@@ -1,10 +1,12 @@
 package com.lophiester.Restaurante.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
 
     private Integer numeroDeParcelas;

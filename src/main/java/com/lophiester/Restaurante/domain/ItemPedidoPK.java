@@ -33,18 +33,18 @@ public class ItemPedidoPK implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ItemPedidoPK)) return false;
 
         ItemPedidoPK that = (ItemPedidoPK) o;
 
-        if (!produto.equals(that.produto)) return false;
-        return pedido.equals(that.pedido);
+        if (getProduto() != null ? !getProduto().equals(that.getProduto()) : that.getProduto() != null) return false;
+        return getPedido() != null ? getPedido().equals(that.getPedido()) : that.getPedido() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = produto.hashCode();
-        result = 31 * result + pedido.hashCode();
+        int result = getProduto() != null ? getProduto().hashCode() : 0;
+        result = 31 * result + (getPedido() != null ? getPedido().hashCode() : 0);
         return result;
     }
 }

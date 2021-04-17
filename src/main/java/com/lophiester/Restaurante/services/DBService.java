@@ -33,11 +33,13 @@ public class DBService {
 
     public void instatiateTestDataBase() throws ParseException {
         Categoria cat1 = new Categoria(null, "Pratos");
-        Categoria cat2 = new Categoria(null, "Bebidas");
+        Categoria cat2 = new Categoria(null, "BebidasNaoAlcoolicas");
         Categoria cat3 = new Categoria(null, "Lanches");
         Categoria cat4 = new Categoria(null, "Sobremesas");
+        Categoria cat5 = new Categoria(null, "BebidasAlcoolicas");
 
-        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4,cat5));
 
         Produto p1 = new Produto(null, "arroz com feijao", 2000L);
         Produto p2 = new Produto(null, "macarrao", 1000L);

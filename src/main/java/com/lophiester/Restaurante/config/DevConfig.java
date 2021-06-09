@@ -1,6 +1,8 @@
 package com.lophiester.Restaurante.config;
 
 import com.lophiester.Restaurante.services.DBService;
+import com.lophiester.Restaurante.services.EmailService;
+import com.lophiester.Restaurante.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,10 @@ public class DevConfig {
         }
         dbService.instatiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 }

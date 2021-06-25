@@ -4,6 +4,7 @@ import com.lophiester.Restaurante.domain.*;
 import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
 import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -30,6 +31,9 @@ public class DBService {
     private PagamentoRepository pagamentoRepository;
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+    @Autowired
+    private BCryptPasswordEncoder password;
+
 
     public void instatiateTestDataBase() throws ParseException {
         Categoria cat1 = new Categoria(null, "Pratos");
@@ -76,9 +80,9 @@ public class DBService {
 
         cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
-        Cliente cli1 = new Cliente(null, "Carlos Morales", "carlos@gmail.com");
+        Cliente cli1 = new Cliente(null, "Carlos Morales", "carlos@gmail.com",password.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("05552154"));
-        Cliente cli2 = new Cliente(null, "Joao Morales", "joao@gmail.com");
+        Cliente cli2 = new Cliente(null, "Joao Morales", "joao@gmail.com",password.encode("123"));
         cli2.getTelefones().addAll(Arrays.asList("05552154"));
 
         clienteRepository.saveAll(Arrays.asList(cli1, cli2));

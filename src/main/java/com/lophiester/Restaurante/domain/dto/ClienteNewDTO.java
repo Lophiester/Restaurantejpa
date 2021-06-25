@@ -19,6 +19,8 @@ public class ClienteNewDTO implements Serializable {
     @NotEmpty
     @Email
     private String email;
+    @NotEmpty
+    private String senha;
 
     private String bairro;
     private String complemento;

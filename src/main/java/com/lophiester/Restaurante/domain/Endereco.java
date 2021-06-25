@@ -1,11 +1,13 @@
 package com.lophiester.Restaurante.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NoArgsConstructor
 public class Endereco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +23,7 @@ public class Endereco implements Serializable {
     @JsonIgnore
     private Cliente cliente;
 
-    public Endereco() {
-    }
+
 
     public Endereco(Integer id, String bairro, String complemento, String cep, Cidade cidade, Cliente cliente) {
         this.id = id;

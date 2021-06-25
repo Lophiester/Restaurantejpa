@@ -1,9 +1,11 @@
 package com.lophiester.Restaurante.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,6 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +23,7 @@ public class Cliente implements Serializable {
     private String nome;
     @Column(unique = true)
     private String email;
+    private String senha;
 
 
     @ElementCollection
@@ -29,40 +35,11 @@ public class Cliente implements Serializable {
     @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
 
-
-    public Cliente() {
-    }
-
-    public Cliente(Integer id, String nome, String email) {
-        this.id    = id;
-        this.nome  = nome;
+    public Cliente(Integer id, String nome, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
         this.email = email;
-
-    }
-
-
-    public Set<String> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(Set<String> telefones) {
-        this.telefones = telefones;
-    }
-
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+        this.senha = senha;
     }
 
     @Override
@@ -81,27 +58,5 @@ public class Cliente implements Serializable {
     }
 
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

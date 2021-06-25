@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private BCryptPasswordEncoder password;
 
     public Cliente findById(Integer id) {
         Optional<Cliente> obj = clienteRepository.findById(id);
@@ -57,11 +60,11 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDTO objDTO) {
-        return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail());
+        return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(),null);
     }
 
     public Cliente fromDTO(ClienteNewDTO newDTO) {
-        Cliente cli = new Cliente(null, newDTO.getNome(), newDTO.getEmail());
+        Cliente cli = new Cliente(null, newDTO.getNome(), newDTO.getEmail(), password.encode(newDTO.getSenha()));
         Cidade ci = new Cidade(newDTO.getCidadeId(), null, null);
         Endereco end = new Endereco(null, newDTO.getBairro(), newDTO.getComplemento(), newDTO.getCep(), ci, cli);
         cli.getEnderecos().add(end);

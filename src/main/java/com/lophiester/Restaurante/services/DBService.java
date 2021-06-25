@@ -2,6 +2,7 @@ package com.lophiester.Restaurante.services;
 
 import com.lophiester.Restaurante.domain.*;
 import com.lophiester.Restaurante.domain.enums.EstadoPagamento;
+import com.lophiester.Restaurante.domain.enums.Perfil;
 import com.lophiester.Restaurante.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -82,7 +83,8 @@ public class DBService {
 
         Cliente cli1 = new Cliente(null, "Carlos Morales", "carlos@gmail.com",password.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("05552154"));
-        Cliente cli2 = new Cliente(null, "Joao Morales", "joao@gmail.com",password.encode("123"));
+        Cliente cli2 = new Cliente(null, "Joao Morales", "gilcharles2022@gmail.com",password.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
         cli2.getTelefones().addAll(Arrays.asList("05552154"));
 
         clienteRepository.saveAll(Arrays.asList(cli1, cli2));
